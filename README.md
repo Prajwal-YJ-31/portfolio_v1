@@ -105,15 +105,3 @@ npm start
 ```
 
 ---
-
-## 🌐 Deployment
-
-### Deploy to Vercel (Recommended)
-1. Push your repository to GitHub:
-   ```bash
-   git add .
-   git commit -m "feat: industry-standard Next.js portfolio"
-   git push origin main
-   ```
-2. Import your repository in [Vercel](https://vercel.com/new).
-3. Vercel automatically detects Next.js and deploys your website with global CDN caching.
