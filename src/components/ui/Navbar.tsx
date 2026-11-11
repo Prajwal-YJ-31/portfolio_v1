@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 
 export const Navbar: React.FC = () => {
-  const { theme, toggleTheme, soundEnabled, toggleSound, playClick } = useTheme();
+  const { theme, toggleTheme, playClick } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const handleLinkClick = (id: string) => {
-    playClick(500);
+    playClick();
     setMobileOpen(false);
     setActiveSection(id);
   };
@@ -44,8 +44,7 @@ export const Navbar: React.FC = () => {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <a href="#hero" className="nav-brand" onClick={() => handleLinkClick('hero')}>
-          <div className="nav-brand-logo">P</div>
-          <div className="nav-brand-text">Prajwal<span>.dev</span></div>
+          <div className="nav-brand-text">Prajwal</div>
         </a>
 
         {/* Desktop Navigation */}
@@ -69,22 +68,8 @@ export const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* Action Buttons: Sound, Theme, Mobile Hamburger */}
+        {/* Action Buttons: Theme, Mobile Hamburger */}
         <div className="nav-actions">
-          {/* Sound Toggle */}
-          <button
-            className="icon-btn"
-            onClick={toggleSound}
-            title={soundEnabled ? 'Mute sound effects' : 'Unmute sound effects'}
-            aria-label="Toggle sound feedback"
-            style={{ opacity: soundEnabled ? 1 : 0.5 }}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            </svg>
-          </button>
-
           {/* Theme Toggle */}
           <button
             className="icon-btn"

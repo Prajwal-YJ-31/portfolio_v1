@@ -16,8 +16,7 @@ export const Footer: React.FC = () => {
       <div className="container">
         <div className="footer-top">
           <a href="#hero" className="nav-brand" aria-label="Back to top">
-            <div className="nav-brand-logo">P</div>
-            <div className="nav-brand-text">Prajwal<span>.dev</span></div>
+            <div className="nav-brand-text">Prajwal</div>
           </a>
 
           <div className="footer-links">

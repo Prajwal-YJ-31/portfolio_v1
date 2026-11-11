@@ -15,9 +15,6 @@ export const Hero: React.FC = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Animated Stats
-  const [counts, setCounts] = useState<number[]>(profile.stats.map(() => 0));
-  const statsRef = useRef<HTMLDivElement>(null);
   const avatarCardRef = useRef<HTMLDivElement>(null);
 
   // Dynamic Typing Effect
@@ -49,46 +46,12 @@ export const Hero: React.FC = () => {
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, roleIndex, profile.typingRoles]);
 
-  // Animated Counters
-  useEffect(() => {
-    let animated = false;
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !animated) {
-        animated = true;
-        profile.stats.forEach((stat, index) => {
-          const duration = 1600;
-          const steps = 60;
-          const stepTime = duration / steps;
-          const increment = stat.number / steps;
-          let current = 0;
+  // 3D Tilt & Specular Physics on Hanging ID Card
+  const [glarePos, setGlarePos] = useState({ x: 50, y: 50, opacity: 0 });
+  const [isInteracting, setIsInteracting] = useState(false);
 
-          const interval = setInterval(() => {
-            current += increment;
-            if (current >= stat.number) {
-              setCounts(prev => {
-                const updated = [...prev];
-                updated[index] = stat.number;
-                return updated;
-              });
-              clearInterval(interval);
-            } else {
-              setCounts(prev => {
-                const updated = [...prev];
-                updated[index] = Math.floor(current);
-                return updated;
-              });
-            }
-          }, stepTime);
-        });
-      }
-    }, { threshold: 0.3 });
-
-    if (statsRef.current) observer.observe(statsRef.current);
-    return () => observer.disconnect();
-  }, [profile.stats]);
-
-  // 3D Tilt Effect on Avatar Card
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
     const card = avatarCardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
@@ -96,15 +59,27 @@ export const Hero: React.FC = () => {
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -10;
-    const rotateY = ((x - centerX) / centerX) * 10;
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    const rotateX = ((y - centerY) / centerY) * -11;
+    const rotateY = ((x - centerX) / centerX) * 13;
+    const rotateZ = ((x - centerX) / centerX) * 2.5;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale3d(1.02, 1.02, 1.02)`;
+
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    setGlarePos({ x: glareX, y: glareY, opacity: 1 });
+  };
+
+  const handleMouseEnter = () => {
+    setIsInteracting(true);
   };
 
   const handleMouseLeave = () => {
+    setIsInteracting(false);
     const card = avatarCardRef.current;
     if (!card) return;
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    card.style.transform = '';
+    setGlarePos(prev => ({ ...prev, opacity: 0 }));
   };
 
   return (
@@ -164,64 +139,72 @@ export const Hero: React.FC = () => {
               </svg>
             </a>
           </div>
-
-          {/* Quick Stat Counters */}
-          <div className="hero-stats" ref={statsRef}>
-            {profile.stats.map((stat, idx) => (
-              <div key={stat.label} className="stat-item">
-                <span className="stat-number">
-                  {counts[idx]}{stat.suffix}
-                </span>
-                <span className="stat-label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Right Column: 3D Tilt Avatar Showcase */}
+        {/* Right Column: 3D Hanging ID Card Showcase */}
         <div className="hero-visual-wrapper">
-          <div className="avatar-card-container">
+          <div className="hanging-id-container">
+            {/* Lanyard Strap & Metallic Hardware */}
+            <div className="lanyard-rig" aria-hidden="true">
+              <div className="lanyard-strap">
+                <span className="lanyard-strap-text">PRAJWAL • PASS</span>
+              </div>
+              <div className="lanyard-hardware">
+                <div className="lanyard-crimp"></div>
+                <div className="lanyard-ring"></div>
+                <div className="lanyard-clip">
+                  <div className="lanyard-clip-body"></div>
+                  <div className="lanyard-clip-hook"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* The Hanging ID Card */}
             <div
-              className="avatar-frame"
+              className={`id-card-wrapper ${isInteracting ? 'is-interacting' : 'is-swaying'}`}
               ref={avatarCardRef}
               onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              id="hero-avatar-card"
+              id="hero-id-card"
             >
-              <Image
-                src="/images/avatar.jpg"
-                alt={`${profile.name} - Developer Portrait`}
-                width={420}
-                height={420}
-                priority
-                className="avatar-img"
-              />
-            </div>
+              {/* Acrylic Holder Tab with Punch Slot */}
+              <div className="id-card-holder-tab">
+                <div className="id-card-slot">
+                  <div className="id-card-slot-inner"></div>
+                </div>
+              </div>
 
-            {/* Floating Badges */}
-            <div className="floating-badge badge-top-left">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-              </svg>
-              <span>Full-Stack</span>
-            </div>
+              {/* Main Badge Surface: Minimalist (Image, Name, Designation) */}
+              <div className="id-card-body">
+                {/* Dynamic Specular Acrylic Glare Overlay */}
+                <div
+                  className="id-card-glare"
+                  style={{
+                    background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.06) 45%, transparent 70%)`,
+                    opacity: glarePos.opacity,
+                  }}
+                  aria-hidden="true"
+                />
 
-            <div className="floating-badge badge-middle-left">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                <path d="M2 17l10 5 10-5"></path>
-                <path d="M2 12l10 5 10-5"></path>
-              </svg>
-              <span>AI &amp; Cloud</span>
-            </div>
+                {/* Photo Frame */}
+                <div className="id-photo-frame">
+                  <Image
+                    src="/images/avatar.jpg"
+                    alt={`${profile.name} - Developer Portrait`}
+                    width={440}
+                    height={440}
+                    priority
+                    className="id-avatar-img"
+                  />
+                </div>
 
-            <div className="floating-badge badge-bottom-right">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>High Quality</span>
+                {/* Member Details: Name & Designation */}
+                <div className="id-details">
+                  <h2 className="id-name">{profile.name}</h2>
+                  <p className="id-role">{profile.title}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
