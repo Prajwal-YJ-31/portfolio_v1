@@ -1,15 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { portfolioData } from '@/data/portfolioData';
 
 export const Footer: React.FC = () => {
   const { profile } = portfolioData;
-  const [year, setYear] = useState('2026');
-
-  useEffect(() => {
-    setYear(new Date().getFullYear().toString());
-  }, []);
+  const currentYear = 2026;
 
   return (
     <footer className="footer">
@@ -31,7 +27,7 @@ export const Footer: React.FC = () => {
 
         <div className="footer-bottom">
           <div>
-            &copy; {year} {profile.name}. Designed &amp; engineered with clean Next.js, React, and TypeScript.
+            &copy; {currentYear} {profile.name}. Designed &amp; engineered with clean Next.js, React, and TypeScript.
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span className="pulse-dot" style={{ width: 6, height: 6 }}></span>

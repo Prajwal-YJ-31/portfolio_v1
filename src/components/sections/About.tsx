@@ -33,10 +33,10 @@ export const About: React.FC = () => {
               &ldquo;Great software balances elegant architecture behind the scenes with intuitive, delightful interactions on the glass.&rdquo;
             </p>
             <p>
-              I am a Computer Science &amp; Engineering graduate and software developer based in {profile.location}. Over the years, I&apos;ve developed a profound enthusiasm for architecting end-to-end applications that solve tangible human challenges.
+              I am a product designer and developer based in {profile.location}. Over the years, I&apos;ve developed a profound enthusiasm for designing user-centric interfaces and architecting robust digital products that solve tangible human challenges.
             </p>
             <p>
-              From architecting containerized microservices to designing responsive, accessible web interfaces and integrating AI models, I enjoy every phase of product engineering.
+              From user research, design systems, and wireframing in Figma to building responsive web applications and scalable full-stack platforms, I love bridging the gap between design and code.
             </p>
 
             {/* 4 Engineering Pillars */}

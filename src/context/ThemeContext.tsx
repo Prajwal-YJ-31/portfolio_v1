@@ -17,14 +17,17 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
   const [soundEnabled] = useState<boolean>(false);
-  const [, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
-    setMounted(true);
     const saved = localStorage.getItem('portfolio_theme_v2') as Theme | null;
-    const initialTheme = saved || 'light';
-    setTheme(initialTheme);
-    document.documentElement.setAttribute('data-theme', initialTheme);
+    if (saved) {
+      // Synchronize theme preference from localStorage on client mount
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(saved);
+      document.documentElement.setAttribute('data-theme', saved);
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
   }, []);
 
   // Sound effects completely disabled per user request

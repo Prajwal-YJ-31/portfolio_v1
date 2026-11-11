@@ -39,8 +39,10 @@ export const Hero: React.FC = () => {
         setIsDeleting(true);
       }, 2000);
     } else if (isDeleting && charIndex === 0) {
-      setIsDeleting(false);
-      setRoleIndex(prev => (prev + 1) % roles.length);
+      timer = setTimeout(() => {
+        setIsDeleting(false);
+        setRoleIndex(prev => (prev + 1) % roles.length);
+      }, 300);
     }
 
     return () => clearTimeout(timer);
@@ -93,7 +95,7 @@ export const Hero: React.FC = () => {
           </div>
 
           <h1 className="hero-title" id="hero-headline">
-            Hi, I'm <span className="text-gradient">{profile.name}</span>
+            Hi, I&apos;m <span className="text-gradient">{profile.name}</span>
           </h1>
 
           <div className="hero-dynamic-text" aria-live="polite">
@@ -101,7 +103,7 @@ export const Hero: React.FC = () => {
           </div>
 
           <p className="hero-description">
-            Passionate software engineer building resilient, scalable web applications, distributed backend microservices, and AI-driven interactive platforms with high aesthetic precision.
+            Passionate product designer and developer crafting intuitive user experiences, scalable web applications, and interactive platforms with high aesthetic precision.
           </p>
 
           <div className="hero-cta-group">
@@ -191,7 +193,7 @@ export const Hero: React.FC = () => {
                 <div className="id-photo-frame">
                   <Image
                     src="/images/avatar.jpg"
-                    alt={`${profile.name} - Developer Portrait`}
+                    alt={`${profile.name} - Product Designer & Developer Portrait`}
                     width={440}
                     height={440}
                     priority

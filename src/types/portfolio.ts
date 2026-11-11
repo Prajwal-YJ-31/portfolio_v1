@@ -27,7 +27,7 @@ export interface QuickFact {
 
 export interface SkillCategory {
   category: string;
-  icon: 'code' | 'server' | 'database' | 'cloud';
+  icon: 'code' | 'server' | 'database' | 'cloud' | 'design';
   tags: string[];
 }
 

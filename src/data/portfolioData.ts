@@ -9,37 +9,45 @@ export const portfolioData: {
 } = {
   profile: {
     name: 'Prajwal Y J',
-    title: 'Software Engineer & Full-Stack Developer',
+    title: 'Product Designer and Developer',
     availability: 'Available for new opportunities',
     location: 'Bengaluru, India',
     email: 'prajwalyj.dev@gmail.com',
     github: 'https://github.com/Prajwal-YJ-31',
     linkedin: 'https://linkedin.com/in/prajwal-yj',
     twitter: 'https://twitter.com',
-    bioLead: 'Building scalable, high-performance web systems and AI-powered interfaces with pixel-perfect design.',
-    bioDescription: 'I am a dedicated software engineer driven by an obsession for clean code, intuitive user experiences, and robust architectures. With expertise across modern frontend frameworks, cloud backend microservices, and distributed systems, I transform complex ideas into reliable digital products.',
+    bioLead: 'Crafting intuitive user experiences and building robust, scalable web products with pixel-perfect design.',
+    bioDescription: 'I am a product designer and developer driven by user empathy, design craft, and robust engineering architectures. Bridging the gap between design systems and full-stack development, I transform complex ideas into intuitive, scalable digital products.',
     typingRoles: [
-      'Full-Stack Software Engineer',
-      'AI & Cloud Systems Builder',
-      'Modern Web Architect',
+      'Product Designer & Developer',
+      'UI/UX & Design Systems',
+      'Full-Stack Web Developer',
       'Creative Problem Solver'
     ],
     stats: [
       { number: 18, suffix: '+', label: 'Completed Projects' },
-      { number: 3, suffix: '+', label: 'Years Coding' },
+      { number: 3, suffix: '+', label: 'Years Experience' },
       { number: 250, suffix: '+', label: 'GitHub Commits' },
       { number: 100, suffix: '%', label: 'Client Satisfaction' }
     ],
     quickFacts: [
       { label: 'Based in', value: 'Bengaluru, India 🇮🇳' },
       { label: 'Education', value: 'B.E. Computer Science & Engineering' },
-      { label: 'Specialization', value: 'Full Stack & Distributed Systems' },
+      { label: 'Specialization', value: 'Product Design & Full-Stack Development' },
       { label: 'Languages', value: 'English, Kannada, Hindi' },
-      { label: 'Interests', value: 'System Design, AI Agents, Open Source' }
+      { label: 'Interests', value: 'UI/UX Design, System Design, AI Agents' }
     ]
   },
 
   skills: [
+    {
+      category: 'Product & UI/UX Design',
+      icon: 'design',
+      tags: [
+        'Figma', 'Design Systems', 'UI/UX Prototyping', 'Wireframing',
+        'User Research', 'Interaction Design', 'Information Architecture', 'Design Tokens'
+      ]
+    },
     {
       category: 'Frontend Development',
       icon: 'code',

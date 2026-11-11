@@ -30,10 +30,15 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://prajwal-yj-31.github.io/portfolio_v1'),
-  title: 'Prajwal Y J | Software Engineer & Full-Stack Developer',
-  description: 'Personal portfolio of Prajwal Y J - Software Engineer specializing in modern Full-Stack development, AI systems, cloud microservices, and intuitive web interfaces.',
+  title: 'Prajwal Y J | Product Designer and Developer',
+  description: 'Personal portfolio of Prajwal Y J - Product Designer and Developer specializing in intuitive user experiences, modern frontend development, design systems, and robust web applications.',
   keywords: [
     'Prajwal Y J',
+    'Product Designer and Developer',
+    'Product Designer',
+    'Developer',
+    'UI/UX Design',
+    'Design Systems',
     'Software Engineer',
     'Full Stack Developer',
     'Next.js',
@@ -49,22 +54,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://github.com/Prajwal-YJ-31/portfolio_v1',
-    title: 'Prajwal Y J | Software Engineer & Full-Stack Developer',
-    description: 'Explore projects, technical skills, and software engineering experience of Prajwal Y J.',
+    title: 'Prajwal Y J | Product Designer and Developer',
+    description: 'Explore projects, technical skills, and design & engineering portfolio of Prajwal Y J.',
     siteName: "Prajwal Y J's Portfolio",
     images: [
       {
         url: '/images/avatar.jpg',
         width: 800,
         height: 800,
-        alt: 'Prajwal Y J',
+        alt: 'Prajwal Y J - Product Designer and Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prajwal Y J | Software Engineer & Full-Stack Developer',
-    description: 'Explore projects, technical skills, and software engineering experience of Prajwal Y J.',
+    title: 'Prajwal Y J | Product Designer and Developer',
+    description: 'Explore projects, technical skills, and design & engineering portfolio of Prajwal Y J.',
     images: ['/images/avatar.jpg'],
   },
 };
