@@ -81,7 +81,7 @@ export const Hero: React.FC = () => {
 
                     {/* Pass Footer: ID & Barcode */}
                     <div className="pass-card-footer">
-                      <span className="pass-id-tag">ID #2026</span>
+                      <span className="pass-id-tag">ID #31</span>
                       <div className="pass-barcode-graphic" aria-hidden="true">
                         <svg width="68" height="18" viewBox="0 0 68 18" fill="currentColor">
                           <rect x="0" y="0" width="2" height="18" />
@@ -106,12 +106,6 @@ export const Hero: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Floating Availability Pill */}
-                <div className="pass-floating-pill">
-                  <span className="pass-pill-dot" />
-                  <span className="pass-pill-text">AVAILABLE FOR FREELANCE</span>
                 </div>
               </div>
             </div>
