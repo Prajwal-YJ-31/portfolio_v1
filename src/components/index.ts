@@ -13,3 +13,4 @@ export { ProjectModal } from './ui/ProjectModal';
 export { CursorGlow } from './ui/CursorGlow';
 export { ScrollProgress } from './ui/ScrollProgress';
 export { BackToTop } from './ui/BackToTop';
+export { LanyardIllustration } from './ui/LanyardIllustration';

@@ -1,212 +1,175 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { portfolioData } from '@/data/portfolioData';
 import { useTheme } from '@/context/ThemeContext';
+import { LanyardIllustration } from '@/components';
 
 export const Hero: React.FC = () => {
   const { profile } = portfolioData;
   const { playClick } = useTheme();
 
-  // Dynamic Typing State
-  const [typedText, setTypedText] = useState('');
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const avatarCardRef = useRef<HTMLDivElement>(null);
-
-  // Dynamic Typing Effect
-  useEffect(() => {
-    const roles = profile.typingRoles;
-    const currentRole = roles[roleIndex];
-
-    let timer: NodeJS.Timeout;
-
-    if (!isDeleting && charIndex < currentRole.length) {
-      timer = setTimeout(() => {
-        setTypedText(currentRole.substring(0, charIndex + 1));
-        setCharIndex(prev => prev + 1);
-      }, 100);
-    } else if (isDeleting && charIndex > 0) {
-      timer = setTimeout(() => {
-        setTypedText(currentRole.substring(0, charIndex - 1));
-        setCharIndex(prev => prev - 1);
-      }, 50);
-    } else if (!isDeleting && charIndex === currentRole.length) {
-      timer = setTimeout(() => {
-        setIsDeleting(true);
-      }, 2000);
-    } else if (isDeleting && charIndex === 0) {
-      timer = setTimeout(() => {
-        setIsDeleting(false);
-        setRoleIndex(prev => (prev + 1) % roles.length);
-      }, 300);
-    }
-
-    return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, roleIndex, profile.typingRoles]);
-
-  // 3D Tilt & Specular Physics on Hanging ID Card
-  const [glarePos, setGlarePos] = useState({ x: 50, y: 50, opacity: 0 });
-  const [isInteracting, setIsInteracting] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
-    const card = avatarCardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -11;
-    const rotateY = ((x - centerX) / centerX) * 13;
-    const rotateZ = ((x - centerX) / centerX) * 2.5;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale3d(1.02, 1.02, 1.02)`;
-
-    const glareX = (x / rect.width) * 100;
-    const glareY = (y / rect.height) * 100;
-    setGlarePos({ x: glareX, y: glareY, opacity: 1 });
-  };
-
-  const handleMouseEnter = () => {
-    setIsInteracting(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsInteracting(false);
-    const card = avatarCardRef.current;
-    if (!card) return;
-    card.style.transform = '';
-    setGlarePos(prev => ({ ...prev, opacity: 0 }));
-  };
-
   return (
-    <section className="hero" id="hero">
-      <div className="container hero-grid">
-        {/* Left Column: Intro & Headline */}
-        <div className="hero-content">
-          <div className="badge-status" id="hero-availability">
-            <span className="pulse-dot"></span>
-            {profile.availability}
+    <section className="hero-editorial" id="hero">
+      {/* Background Ambience & Atmospheric Pastels */}
+      <div className="hero-atmosphere" aria-hidden="true">
+        <div className="hero-ambient-glow glow-left" />
+        <div className="hero-ambient-glow glow-right" />
+        <div className="hero-grid-lines" />
+      </div>
+
+      {/* Main Hero Viewport Container */}
+      <div className="hero-editorial-container">
+        {/* Main Center Area: Left Typography & Right Lanyard Card */}
+        <div className="hero-main-row">
+          {/* Left Column: Big Bold Typography */}
+          <div className="hero-left-column">
+            <div className="hero-title-block">
+              <span className="hero-salutation">Hi, I am</span>
+              <h1 className="hero-giant-name">Prajwal</h1>
+            </div>
           </div>
 
-          <h1 className="hero-title" id="hero-headline">
-            Hi, I&apos;m <span className="text-gradient">{profile.name}</span>
-          </h1>
-
-          <div className="hero-dynamic-text" aria-live="polite">
-            I am a <span className="typed-text">{typedText}</span><span className="type-cursor"></span>
-          </div>
-
-          <p className="hero-description">
-            Passionate product designer and developer crafting intuitive user experiences, scalable web applications, and interactive platforms with high aesthetic precision.
-          </p>
-
-          <div className="hero-cta-group">
-            <a
-              href="#projects"
-              className="btn btn-primary"
-              id="cta-projects-btn"
-              onClick={() => playClick(550)}
+          {/* Right Column: Lanyard Rig & ID Badge with Pendulum Movement */}
+          <div className="hero-right-column">
+            <div
+              className="hero-pendulum-assembly is-swinging"
+              id="hero-pendulum-rig"
             >
-              Explore Projects
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-            <a
-              href="#contact"
-              className="btn btn-secondary"
-              id="cta-contact-btn"
-              onClick={() => playClick(480)}
-            >
-              Get in Touch
-            </a>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="icon-btn"
-              title="GitHub Profile"
-              aria-label="GitHub Profile"
-              onClick={() => playClick(450)}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        {/* Right Column: 3D Hanging ID Card Showcase */}
-        <div className="hero-visual-wrapper">
-          <div className="hanging-id-container">
-            {/* Lanyard Strap & Metallic Hardware */}
-            <div className="lanyard-rig" aria-hidden="true">
-              <div className="lanyard-strap">
-                <span className="lanyard-strap-text">PRAJWAL • PASS</span>
+              {/* Lanyard Fabric Ribbon & Metal Hardware (Pure Vector Illustration) */}
+              <div className="hero-lanyard-rig" aria-hidden="true">
+                <LanyardIllustration className="hero-lanyard-svg" />
               </div>
-              <div className="lanyard-hardware">
-                <div className="lanyard-crimp"></div>
-                <div className="lanyard-ring"></div>
-                <div className="lanyard-clip">
-                  <div className="lanyard-clip-body"></div>
-                  <div className="lanyard-clip-hook"></div>
+
+              {/* The Angled ID Pass Badge with Pendulum Motion */}
+              <div
+                className="editorial-card-container"
+                id="hero-id-card"
+              >
+                {/* Acrylic Clear Plastic Outer Holder */}
+                <div className="acrylic-badge-holder">
+                  {/* Top Tab with Clip Slot Cutouts */}
+                  <div className="acrylic-tab-bar">
+                    <span className="acrylic-side-slot" />
+                    <span className="acrylic-center-slot" />
+                    <span className="acrylic-side-slot" />
+                  </div>
+
+                  {/* Inside Card Body */}
+                  <div className="inner-pass-card">
+                    {/* Pastel Gradient Header */}
+                    <div className="pass-header-banner" aria-hidden="true" />
+
+                    {/* Avatar Image */}
+                    <div className="pass-avatar-wrap">
+                      <Image
+                        src="/images/avatar.jpg"
+                        alt={`${profile.name} - Portrait`}
+                        width={280}
+                        height={280}
+                        priority
+                        className="pass-avatar-img"
+                      />
+                    </div>
+
+                    {/* Pass Details */}
+                    <div className="pass-info-block">
+                      <h2 className="pass-holder-name">PRAJWAL</h2>
+                      <p className="pass-holder-role">Product designer and developer</p>
+                    </div>
+
+                    {/* Pass Footer: ID & Barcode */}
+                    <div className="pass-card-footer">
+                      <span className="pass-id-tag">ID #2026</span>
+                      <div className="pass-barcode-graphic" aria-hidden="true">
+                        <svg width="68" height="18" viewBox="0 0 68 18" fill="currentColor">
+                          <rect x="0" y="0" width="2" height="18" />
+                          <rect x="3" y="0" width="1" height="18" />
+                          <rect x="6" y="0" width="3" height="18" />
+                          <rect x="11" y="0" width="1.5" height="18" />
+                          <rect x="14" y="0" width="2" height="18" />
+                          <rect x="18" y="0" width="3.5" height="18" />
+                          <rect x="23" y="0" width="1" height="18" />
+                          <rect x="26" y="0" width="2" height="18" />
+                          <rect x="30" y="0" width="1.5" height="18" />
+                          <rect x="33" y="0" width="3" height="18" />
+                          <rect x="38" y="0" width="1" height="18" />
+                          <rect x="41" y="0" width="2" height="18" />
+                          <rect x="45" y="0" width="3.5" height="18" />
+                          <rect x="50" y="0" width="1.5" height="18" />
+                          <rect x="53" y="0" width="2" height="18" />
+                          <rect x="57" y="0" width="1" height="18" />
+                          <rect x="60" y="0" width="2.5" height="18" />
+                          <rect x="64" y="0" width="3" height="18" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Availability Pill */}
+                <div className="pass-floating-pill">
+                  <span className="pass-pill-dot" />
+                  <span className="pass-pill-text">AVAILABLE FOR FREELANCE</span>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* The Hanging ID Card */}
-            <div
-              className={`id-card-wrapper ${isInteracting ? 'is-interacting' : 'is-swaying'}`}
-              ref={avatarCardRef}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              id="hero-id-card"
+        {/* Bottom Metadata & Navigation Row */}
+        <div className="hero-bottom-row">
+          <div className="hero-meta-left">
+            <p className="hero-tagline-text">
+              A playground where code meets play.<br />
+              Building immersive digital experiences.
+            </p>
+            <span className="hero-location-badge">[BASED IN INDIA]</span>
+          </div>
+
+          <div className="hero-meta-center">
+            <a
+              href="#about"
+              className="hero-scroll-link"
+              onClick={() => playClick(500)}
             >
-              {/* Acrylic Holder Tab with Punch Slot */}
-              <div className="id-card-holder-tab">
-                <div className="id-card-slot">
-                  <div className="id-card-slot-inner"></div>
-                </div>
-              </div>
+              SCROLL TO EXPLORE [ &darr; ]
+            </a>
+          </div>
 
-              {/* Main Badge Surface: Minimalist (Image, Name, Designation) */}
-              <div className="id-card-body">
-                {/* Dynamic Specular Acrylic Glare Overlay */}
-                <div
-                  className="id-card-glare"
-                  style={{
-                    background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.06) 45%, transparent 70%)`,
-                    opacity: glarePos.opacity,
-                  }}
-                  aria-hidden="true"
-                />
-
-                {/* Photo Frame */}
-                <div className="id-photo-frame">
-                  <Image
-                    src="/images/avatar.jpg"
-                    alt={`${profile.name} - Product Designer & Developer Portrait`}
-                    width={440}
-                    height={440}
-                    priority
-                    className="id-avatar-img"
-                  />
-                </div>
-
-                {/* Member Details: Name & Designation */}
-                <div className="id-details">
-                  <h2 className="id-name">{profile.name}</h2>
-                  <p className="id-role">{profile.title}</p>
-                </div>
-              </div>
+          <div className="hero-meta-right">
+            <div className="hero-social-links">
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social-anchor"
+                title="GitHub"
+                onClick={() => playClick(450)}
+              >
+                GH
+              </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social-anchor"
+                title="LinkedIn"
+                onClick={() => playClick(450)}
+              >
+                LN
+              </a>
+              <a
+                href={profile.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social-anchor"
+                title="X / Twitter"
+                onClick={() => playClick(450)}
+              >
+                𝕏
+              </a>
             </div>
           </div>
         </div>
