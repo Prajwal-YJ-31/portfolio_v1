@@ -15,7 +15,8 @@ export const portfolioData: {
     email: 'prajwalyj.dev@gmail.com',
     github: 'https://github.com/Prajwal-YJ-31',
     linkedin: 'https://linkedin.com/in/prajwal-yj',
-    twitter: 'https://twitter.com',
+    behance: '#',
+    dribbble: '#',
     bioLead: 'Crafting intuitive user experiences and building robust, scalable web products with pixel-perfect design.',
     bioDescription: 'I am a product designer and developer driven by user empathy, design craft, and robust engineering architectures. Bridging the gap between design systems and full-stack development, I transform complex ideas into intuitive, scalable digital products.',
     typingRoles: [

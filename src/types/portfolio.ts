@@ -6,7 +6,9 @@ export interface Profile {
   email: string;
   github: string;
   linkedin: string;
-  twitter: string;
+  behance: string;
+  dribbble: string;
+  twitter?: string;
   bioLead: string;
   bioDescription: string;
   typingRoles: string[];
