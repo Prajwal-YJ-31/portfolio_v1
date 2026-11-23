@@ -40,47 +40,7 @@ export const portfolioData: {
     ]
   },
 
-  skills: [
-    {
-      category: 'Product & UI/UX Design',
-      icon: 'design',
-      tags: [
-        'Figma', 'Design Systems', 'UI/UX Prototyping', 'Wireframing',
-        'User Research', 'Interaction Design', 'Information Architecture', 'Design Tokens'
-      ]
-    },
-    {
-      category: 'Frontend Development',
-      icon: 'code',
-      tags: [
-        'React.js', 'Next.js', 'TypeScript', 'JavaScript (ES6+)',
-        'HTML5 / CSS3', 'Tailwind CSS', 'Redux Toolkit', 'Vue.js', 'Responsive Design'
-      ]
-    },
-    {
-      category: 'Backend & Systems',
-      icon: 'server',
-      tags: [
-        'Node.js', 'Express.js', 'Python', 'FastAPI', 'Django',
-        'RESTful APIs', 'GraphQL', 'Microservices', 'WebSocket'
-      ]
-    },
-    {
-      category: 'Databases & Storage',
-      icon: 'database',
-      tags: [
-        'PostgreSQL', 'MongoDB', 'Redis', 'MySQL', 'Prisma ORM', 'Supabase', 'Firebase'
-      ]
-    },
-    {
-      category: 'DevOps & Cloud',
-      icon: 'cloud',
-      tags: [
-        'Docker', 'AWS (EC2, S3, Lambda)', 'Git & GitHub Actions', 'CI/CD Pipelines',
-        'Linux CLI', 'Nginx', 'Vercel / Netlify'
-      ]
-    }
-  ],
+  skills: [],
 
   projects: [
     {

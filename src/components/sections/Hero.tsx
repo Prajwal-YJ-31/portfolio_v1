@@ -116,8 +116,8 @@ export const Hero: React.FC = () => {
         <div className="hero-bottom-row">
           <div className="hero-meta-left">
             <p className="hero-tagline-text">
-              A playground where code meets play.<br />
-              Building immersive digital experiences.
+              Bridging the gap between design systems &amp; code.<br />
+              Turning complex ideas into intuitive products.
             </p>
             <span className="hero-location-badge">[BASED IN INDIA]</span>
           </div>

@@ -6,6 +6,10 @@ import { portfolioData } from '@/data/portfolioData';
 export const Skills: React.FC = () => {
   const { skills } = portfolioData;
 
+  if (!skills || skills.length === 0) {
+    return null;
+  }
+
   const renderIcon = (type: string) => {
     switch (type) {
       case 'design':
