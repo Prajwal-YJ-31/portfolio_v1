@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portfolioData } from '@/data/portfolioData';
 import { useToast } from '@/context/ToastContext';
 import { useTheme } from '@/context/ThemeContext';
@@ -9,6 +9,32 @@ export const Contact: React.FC = () => {
   const { profile } = portfolioData;
   const { showToast } = useToast();
   const { playClick } = useTheme();
+
+  const [indiaTime, setIndiaTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const formatter = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        });
+        setIndiaTime(formatter.format(new Date()));
+      } catch {
+        const now = new Date();
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const istDate = new Date(utc + 5.5 * 3600000);
+        setIndiaTime(istDate.toLocaleTimeString('en-US'));
+      }
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const [form, setForm] = useState({
     name: '',
@@ -117,7 +143,14 @@ export const Contact: React.FC = () => {
               </div>
               <div className="contact-box-details">
                 <div className="contact-box-label">Timezone &amp; Status</div>
-                <div className="contact-box-val">IST (UTC +5:30) • Open to Global Remote</div>
+                <div className="contact-box-val" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+                  <span className="pulse-dot" style={{ width: 6, height: 6 }} aria-hidden="true"></span>
+                  <span style={{ fontVariantNumeric: 'tabular-nums' }}>
+                    {indiaTime ? `${indiaTime} IST` : 'IST (UTC +5:30)'}
+                  </span>
+                  <span style={{ opacity: 0.5 }}>•</span>
+                  <span>Open to Global Remote</span>
+                </div>
               </div>
             </div>
 
