@@ -40,7 +40,38 @@ export const portfolioData: {
     ]
   },
 
-  skills: [],
+  skills: [
+    {
+      category: 'Code & Programming',
+      icon: 'code',
+      tags: ['TypeScript', 'JavaScript', 'Python', 'C++', 'SQL', 'HTML5/CSS3']
+    },
+    {
+      category: 'Product & UI/UX Designer',
+      icon: 'design',
+      tags: ['Figma', 'Design Systems', 'Wireframing', 'Prototyping', 'User Research']
+    },
+    {
+      category: 'Development',
+      icon: 'code',
+      tags: ['React.js', 'Next.js', 'Node.js', 'Express', 'Tailwind CSS', 'Redux']
+    },
+    {
+      category: 'Cloud & DevOps',
+      icon: 'cloud',
+      tags: ['Docker', 'Kubernetes', 'CI/CD Pipelines', 'AWS', 'Git & GitHub Actions']
+    },
+    {
+      category: 'AI & Tools',
+      icon: 'server',
+      tags: ['LLMs & Prompt Engineering', 'LangChain', 'FastAPI', 'VS Code', 'Postman']
+    },
+    {
+      category: 'Project Mgmt & Systems',
+      icon: 'database',
+      tags: ['Agile / Scrum', 'PostgreSQL', 'Redis', 'System Architecture', 'REST APIs']
+    }
+  ],
 
   projects: [
     {
