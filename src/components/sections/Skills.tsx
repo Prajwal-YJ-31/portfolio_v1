@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTheme } from '@/context/ThemeContext';
 
 interface SkillBox {
   id: string;
+  binNumber: number;
   title: string;
   top: string;
   left: string;
@@ -18,6 +19,7 @@ interface SkillBox {
 const SKILL_BOXES: SkillBox[] = [
   {
     id: 'code',
+    binNumber: 1,
     title: 'Code & Programming',
     top: '11.5%',
     left: '11.8%',
@@ -28,6 +30,7 @@ const SKILL_BOXES: SkillBox[] = [
   },
   {
     id: 'design',
+    binNumber: 2,
     title: 'Product & UI/UX Designer',
     top: '11.5%',
     left: '39.8%',
@@ -38,6 +41,7 @@ const SKILL_BOXES: SkillBox[] = [
   },
   {
     id: 'ai',
+    binNumber: 3,
     title: 'AI & Tools',
     top: '11.5%',
     left: '67.4%',
@@ -48,6 +52,7 @@ const SKILL_BOXES: SkillBox[] = [
   },
   {
     id: 'dev',
+    binNumber: 4,
     title: 'Development',
     top: '36.5%',
     left: '11.8%',
@@ -58,6 +63,7 @@ const SKILL_BOXES: SkillBox[] = [
   },
   {
     id: 'cloud',
+    binNumber: 5,
     title: 'Cloud & DevOps',
     top: '36.5%',
     left: '39.8%',
@@ -68,6 +74,7 @@ const SKILL_BOXES: SkillBox[] = [
   },
   {
     id: 'pm',
+    binNumber: 6,
     title: 'Project Mgmt & Systems',
     top: '36.5%',
     left: '67.4%',
@@ -82,9 +89,24 @@ export const Skills: React.FC = () => {
   const [selectedBox, setSelectedBox] = useState<SkillBox | null>(null);
   const { playClick } = useTheme();
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedBox(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleBoxClick = (box: SkillBox) => {
     playClick?.();
     setSelectedBox(prev => (prev?.id === box.id ? null : box));
+  };
+
+  const handleClose = () => {
+    playClick?.();
+    setSelectedBox(null);
   };
 
   return (
@@ -99,54 +121,18 @@ export const Skills: React.FC = () => {
       {/* Div 1: For Text */}
       <div className="skills-text-column">
         <div className="skills-text-wrapper">
-          <div className="skills-header-row">
-            <h2 className="skills-main-heading">
-              Skills &amp; <span className="text-gradient">Experties</span>
-            </h2>
-            {selectedBox && (
-              <button
-                type="button"
-                className="skills-reset-btn"
-                onClick={() => {
-                  playClick?.();
-                  setSelectedBox(null);
-                }}
-                title="View full inventory overview"
-              >
-                Reset view
-              </button>
-            )}
-          </div>
+          <h2 className="skills-main-heading">
+            Skills &amp; <span className="text-gradient">Experties</span>
+          </h2>
 
-          {selectedBox ? (
-            <div className="skill-active-box-view">
-              <div className="skill-active-badge">
-                <span className="skill-active-dot" />
-                {selectedBox.title}
-              </div>
-              <p className="skills-inventory-description">
-                {selectedBox.description}
-              </p>
-              <div className="skill-tags-wrapper">
-                {selectedBox.tags.map((tag) => (
-                  <span key={tag} className="skill-tag">
-                    <span className="skill-tag-dot" />
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <>
-              <p className="skills-inventory-description">
-                A thoughtfully curated inventory of skills and creative disciplines—spanning code, full-stack architecture, UI/UX design systems, cloud infrastructure, and AI workflows. Organized modularly like an engineering workshop, each tool and framework is mastered to build intuitive, resilient, and production-grade digital products.
-              </p>
-              <div className="skills-interactive-hint">
-                <span className="skills-hint-icon">💡</span>
-                <span>Click on any organizer box in the illustration to explore the tools inside that bin.</span>
-              </div>
-            </>
-          )}
+          <p className="skills-inventory-description">
+            A thoughtfully curated inventory of skills and creative disciplines—spanning code, full-stack architecture, UI/UX design systems, cloud infrastructure, and AI workflows. Organized modularly like an engineering workshop, each tool and framework is mastered to build intuitive, resilient, and production-grade digital products.
+          </p>
+
+          <div className="skills-interactive-hint">
+            <span className="skills-hint-icon">💡</span>
+            <span>Click on any organizer box in the illustration to open its floating inventory window.</span>
+          </div>
         </div>
       </div>
 
@@ -178,8 +164,8 @@ export const Skills: React.FC = () => {
                     height: box.height,
                   }}
                   onClick={() => handleBoxClick(box)}
-                  aria-label={`Select ${box.title} box`}
-                  title={`Click to view ${box.title} skills`}
+                  aria-label={`Open ${box.title} floating window`}
+                  title={`Click to open ${box.title} floating window`}
                 >
                   <span className="skill-hotspot-indicator">
                     <span className="skill-hotspot-pulse" />
@@ -188,6 +174,59 @@ export const Skills: React.FC = () => {
               );
             })}
           </div>
+
+          {/* Small Floating Window (Contained Inside Section Only) */}
+          {selectedBox && (
+            <div
+              className="skill-small-floating-window"
+              role="region"
+              aria-label={`${selectedBox.title} details`}
+            >
+              {/* Mini Titlebar */}
+              <div className="skill-mini-titlebar">
+                <div className="skill-mini-dots">
+                  <span className="skill-mini-dot dot-red" />
+                  <span className="skill-mini-dot dot-yellow" />
+                  <span className="skill-mini-dot dot-green" />
+                </div>
+                <span className="skill-mini-title">
+                  Bin #{selectedBox.binNumber} &bull; {selectedBox.title}
+                </span>
+                <button
+                  type="button"
+                  className="skill-mini-close-btn"
+                  onClick={handleClose}
+                  aria-label="Close floating window"
+                  title="Close (Esc)"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: 14, height: 14 }}>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Mini Body */}
+              <div className="skill-mini-body">
+                <div className="skill-mini-header-row">
+                  <h3 className="skill-mini-heading">{selectedBox.title}</h3>
+                </div>
+
+                <p className="skill-mini-desc">
+                  {selectedBox.description}
+                </p>
+
+                <div className="skill-mini-tags">
+                  {selectedBox.tags.map((tag) => (
+                    <span key={tag} className="skill-mini-tag">
+                      <span className="skill-tag-dot" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
