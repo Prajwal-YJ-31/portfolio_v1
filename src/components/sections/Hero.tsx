@@ -64,7 +64,7 @@ export const Hero: React.FC = () => {
                     {/* Avatar Image */}
                     <div className="pass-avatar-wrap">
                       <Image
-                        src="/images/avatar.jpg"
+                        src="/image.png"
                         alt={`${profile.name} - Portrait`}
                         width={280}
                         height={280}
