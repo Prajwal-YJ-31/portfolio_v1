@@ -1,106 +1,87 @@
 'use client';
 
 import React from 'react';
-import { portfolioData } from '@/data/portfolioData';
+import Image from 'next/image';
 
 export const Experience: React.FC = () => {
-  const { experience, education } = portfolioData;
-
   return (
     <section className="section" id="experience">
       <div className="container">
-        <div className="section-header">
-          <div className="section-tag">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: 14, height: 14 }}>
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-            Career Milestones
+        {/* Two Containers for The Journey Header */}
+        <div className="journey-header-wrapper">
+          {/* Container 1: Title */}
+          <div className="journey-title-container">
+            <h2 className="journey-main-title">
+              The <span className="text-gradient">Journey</span>
+            </h2>
           </div>
-          <h2 className="section-title">
-            Experience &amp; <span className="text-gradient">Education</span>
-          </h2>
-          <p className="section-subtitle">
-            My professional evolution, internships, and academic foundation in Computer Science.
-          </p>
+
+          {/* Container 2: Small Subtext */}
+          <div className="journey-subtext-container">
+            <p className="journey-subtext">
+              A visual roadmap of my professional evolution—from the day I threw my graduation cap to the digital landscapes I explore today.
+            </p>
+          </div>
         </div>
 
-        <div className="timeline-section-grid">
-          {/* Column 1: Experience */}
-          <div className="timeline-column">
-            <h3 className="timeline-column-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-              </svg>
-              Work Experience
-            </h3>
-
-            <div className="timeline-wrapper">
-              {experience.map((item, idx) => (
-                <div key={idx} className="timeline-item">
-                  <div className="timeline-node"></div>
-                  <div className="timeline-content-card">
-                    <div className="timeline-meta">
-                      <span className="timeline-period">{item.period}</span>
-                    </div>
-                    <h4 className="timeline-role">{item.role}</h4>
-                    <div className="timeline-org">{item.company}</div>
-                    <ul className="timeline-bullets">
-                      {item.bullets.map((bullet, bIdx) => (
-                        <li key={bIdx}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
+        {/* Visual Roadmap Strip with Extracted Buildings */}
+        <div className="journey-buildings-roadmap">
+          <div className="journey-building-card">
+            <div className="journey-building-img-wrap">
+              <Image
+                src="/images/journey/crop_b1_rembg.png"
+                alt="Sambhram Institute of Technology"
+                width={335}
+                height={285}
+                className="journey-building-img"
+              />
+            </div>
+            <div className="journey-building-info">
+              <span className="journey-building-badge">2021 &ndash; 2025</span>
+              <h4 className="journey-building-title">Sambhram Institute of Technology</h4>
+              <p className="journey-building-subtitle">B.E. Computer Science Engineer</p>
             </div>
           </div>
 
-          {/* Column 2: Education */}
-          <div className="timeline-column">
-            <h3 className="timeline-column-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-              </svg>
-              Education &amp; Credentials
-            </h3>
+          <div className="journey-step-connector" aria-hidden="true">
+            <span className="journey-connector-arrow">&rarr;</span>
+          </div>
 
-            <div className="timeline-wrapper">
-              {education.map((item, idx) => (
-                <div key={idx} className="timeline-item">
-                  <div className="timeline-node"></div>
-                  <div className="timeline-content-card">
-                    <div className="timeline-meta">
-                      <span className="timeline-period">{item.period}</span>
-                    </div>
-                    <h4 className="timeline-role">{item.role}</h4>
-                    <div className="timeline-org">{item.company}</div>
-                    <ul className="timeline-bullets">
-                      {item.bullets.map((bullet, bIdx) => (
-                        <li key={bIdx}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
+          <div className="journey-building-card">
+            <div className="journey-building-img-wrap">
+              <Image
+                src="/images/journey/crop_b2_rembg.png"
+                alt="Freelance Hub"
+                width={310}
+                height={225}
+                className="journey-building-img"
+              />
+            </div>
+            <div className="journey-building-info">
+              <span className="journey-building-badge">June 2025 &ndash; May 2026</span>
+              <h4 className="journey-building-title">Freelancer</h4>
+              <p className="journey-building-subtitle">Website Design &amp; Developer</p>
+            </div>
+          </div>
 
-              <div className="timeline-item">
-                <div className="timeline-node"></div>
-                <div className="timeline-content-card">
-                  <div className="timeline-meta">
-                    <span className="timeline-period">CREDENTIALS</span>
-                  </div>
-                  <h4 className="timeline-role">Professional Certifications</h4>
-                  <div className="timeline-org">Continuous Learning</div>
-                  <ul className="timeline-bullets">
-                    <li>AWS Certified Cloud Practitioner / Modern Cloud Architecture.</li>
-                    <li>Full-Stack Web Development Specialization (Deep React &amp; Node Systems).</li>
-                    <li>Algorithmic Problem Solving &amp; Data Structures Proficiency.</li>
-                  </ul>
-                </div>
-              </div>
+          <div className="journey-step-connector" aria-hidden="true">
+            <span className="journey-connector-arrow">&rarr;</span>
+          </div>
+
+          <div className="journey-building-card">
+            <div className="journey-building-img-wrap">
+              <Image
+                src="/images/journey/crop_b3_rembg.png"
+                alt="Brikup Tech"
+                width={310}
+                height={275}
+                className="journey-building-img"
+              />
+            </div>
+            <div className="journey-building-info">
+              <span className="journey-building-badge">May 2026 &ndash; Present</span>
+              <h4 className="journey-building-title">Brikup Tech</h4>
+              <p className="journey-building-subtitle">Software Developer Intern</p>
             </div>
           </div>
         </div>
